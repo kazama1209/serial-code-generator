@@ -1,0 +1,59 @@
+- breadcrumb :admin_campaigns
+
+= render "admin/shared/flash_message"
+
+.container.p-4
+  .d-flex.justify-content-center.mb-4
+    = render "search_form"
+  
+  .d-flex.align-items-center.justify-content-center
+    .ms-auto.mb-2
+      = link_to new_admin_campaign_path, class: "btn btn-sm btn-success ms-1" do
+        i.fa-solid.fa-plus.me-1
+        | 新規作成
+  
+  = items_count(@campaigns)
+  
+  .table-responsive.mt-3
+      table.table.border.border-1
+        thead
+          tr.table-dark style="white-space: nowrap;"
+            th scope="col" ID
+            th scope="col" タイトル
+            th scope="col"
+            th scope="col" 作成日時
+            th scope="col"
+
+        tbody
+          - if @campaigns.any?
+            - @campaigns.each do |campaign|
+              tr style="white-space: nowrap;"
+                td
+                  = campaign.id
+                td
+                  = campaign.title
+                td
+                  = link_to admin_campaign_serial_codes_path(campaign), class: "btn btn-sm btn-outline-success me-2" do
+                    i.fa-solid.fa-barcode.me-1
+                    | シリアルコード
+                  = link_to admin_campaign_applications_path(campaign), class: "btn btn-sm btn-outline-success me-2" do
+                    i.fa-solid.fa-arrow-up-from-bracket.me-1
+                    | 応募
+                  = link_to admin_campaign_venues_path(campaign), class: "btn btn-sm btn-outline-success me-2" do
+                    i.fa-solid.fa-location-dot.me-1
+                    | 会場
+
+                td
+                  = format_at(campaign.created_at)
+                td
+                  = link_to edit_admin_campaign_path(campaign), class: "btn btn-sm btn-outline-secondary me-2" do
+                    i.fas.fa-edit.me-1
+                    | 編集
+          - else
+            tr
+              td データが存在しません
+              td
+              td
+              td
+
+  = paginate @campaigns, theme: "bootstrap-5"

@@ -1,0 +1,88 @@
+- breadcrumb :new_admin_campaign_serial_code, @campaign
+
+= render "admin/shared/flash_message"
+
+.container.p-4
+  .row
+    .col-6.offset-3
+      .card
+        .card-body
+          = form_with model: @serial_code, url: admin_campaign_serial_codes_path, local: true, id: "form" do |f|
+            table.table.table-borderless
+              tr
+                td
+                  = f.label t("activemodel.attributes.serial_code_generate_form.amount")
+                  span.text-danger *
+                td
+                  = f.number_field :amount, min: 1, max: 5000, value: 1, required: true, class: "form-control"
+              tr
+                td
+                  = f.label t("activemodel.attributes.serial_code_generate_form.number_of_digits")
+                  span.text-danger *
+                td
+                  = f.number_field :number_of_digits, min: 8, max: 16, value: 16, required: true, class: "form-control"
+              tr
+                td
+                  = f.label t("activemodel.attributes.serial_code_generate_form.format")
+                  span.text-danger *
+                td
+                  = f.collection_radio_buttons :format, SerialCode::FORMATS, :first, :last do |b|
+                    .form-check.form-check-inline
+                      = b.label(class: "form-check-label") { b.radio_button(checked: b.value == SerialCode::FORMATS.keys.first, class: "form-check-input me-1") + b.text }
+              tr
+                td
+                  = f.label t("activemodel.attributes.serial_code_generate_form.prefix")
+                  span.text-danger *
+                td
+                  = f.text_field :prefix, required: true, class: "form-control"
+              tr
+                td
+                  = f.label t("activemodel.attributes.serial_code_generate_form.expired_at")
+                  span.text-danger *
+                td
+                  = f.date_field :expired_at, required: true, class: "form-control"
+
+            .text-center
+              = f.button type: "submit", disabled: true, class: "btn btn-sm btn-success", id: "submit_button" do
+                i.fa-solid.fa-plus.me-1
+                | 作成する
+    
+    .col-6.offset-3.mt-4
+      .alert.alert-warning
+        div
+          i.fa-regular.fa-circle-check.me-1
+          | 一度に作成できるシリアルコードは5,000件までです。
+        div
+          i.fa-regular.fa-circle-check.me-1
+          | 桁数は8~16まで指定可能です。
+        div
+          i.fa-regular.fa-circle-check.me-1
+          | プレフィックスはランダムに生成された英数字の前に付く固定の文字列となります。（例: プレフィックス1234ABCDE）
+        div
+          i.fa-regular.fa-circle-check.me-1
+          | セキュリティ的な観点から英数字16桁の設定を推奨します。
+
+javascript:
+  (function () {
+    const form = document.getElementById("form");
+    const submitButton = document.getElementById("submit_button");
+
+    form.addEventListener("input", toggleButtonStatus);
+    form.addEventListener("change", toggleButtonStatus);
+
+    function toggleButtonStatus() {
+      const isButtonEnabled = form.checkValidity();
+      
+      if (isButtonEnabled) {
+        submitButton.disabled = false;
+      } else {
+        submitButton.disabled = true;
+      }
+    }
+
+    const backdropSpinner = document.getElementById("backdrop_spinner");
+
+    submitButton.addEventListener("click", function() {
+      backdropSpinner.style.display = "block"
+    });
+  }());

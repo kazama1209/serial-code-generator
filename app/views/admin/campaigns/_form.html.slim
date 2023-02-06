@@ -1,0 +1,18 @@
+= form_with model: model, url: url, local: true do |f|
+  table.table.table-borderless
+    tr
+      td
+        = f.label :title
+        span.text-danger *
+      td
+        = f.text_field :title, required: true, class: "form-control"
+  
+  .text-center
+    - if action_name == "new"
+      = f.button type: "submit", class: "btn btn-sm btn-success" do
+        i.fa-solid.fa-plus.me-1
+        | 作成する
+    - else
+      = f.button type: "submit", class: "btn btn-sm btn-outline-secondary" do
+        i.fas.fa-edit.me-1
+        | 編集する

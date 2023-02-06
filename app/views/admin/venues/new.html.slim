@@ -1,0 +1,8 @@
+- breadcrumb :new_admin_campaign_venue, @campaign
+
+.container.p-4
+  .row
+    .col-6.offset-3
+      .card
+        .card-body
+          = render "form", model: @venue, url: admin_campaign_venues_path

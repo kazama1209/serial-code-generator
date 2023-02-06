@@ -1,0 +1,10 @@
+container.p-4
+  .row
+    .col-6.offset-3
+      .card
+        .card-body
+          h4.text-center.mb-4
+            = @campaign.title
+            | &nbsp 応募フォーム
+          
+          = render "user/applications/form", model: @application, url: campaign_applications_path(@campaign), campaign: @campaign

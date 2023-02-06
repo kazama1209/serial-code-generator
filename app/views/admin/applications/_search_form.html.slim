@@ -1,0 +1,52 @@
+= form_with url: admin_campaign_applications_path, scope: :q, method: :get, local: true do |f|
+  .card style="width: 800px;"
+    .card-header.bg-light
+      i.fas.fa-search.me-1
+      | 検索条件
+
+    ul.list-group.list-group-flush
+      li.list-group-item
+        .row.mb-1
+          .hstack.gap-3
+            .col
+              = f.label t("activerecord.attributes.application.serial_code_id"), class: "mb-1"
+              = f.text_field :serial_code_value, value: params.dig(:q, :serial_code_value), class: "form-control"
+            .vr
+            .col
+              = f.label t("activerecord.attributes.application.venue_id"), class: "mb-1"
+              = f.collection_select(:venue_id, Venue.all, :id, :name, { include_blank: true, selected: params.dig(:q, :venue_id) }, { class:"form-select" })
+            .vr
+            .col
+              = f.label t("activerecord.attributes.application.email"), class: "mb-1"
+              = f.text_field :email, value: params.dig(:q, :email), class: "form-control"
+      
+      li.list-group-item
+        .row.mb-1
+          .hstack.gap-3
+            .col
+              = f.label t("activerecord.attributes.application.last_name"), class: "mb-1"
+              = f.text_field :last_name, value: params.dig(:q, :last_name), class: "form-control"
+            .vr
+            .col
+              = f.label t("activerecord.attributes.application.first_name"), class: "mb-1"
+              = f.text_field :first_name, value: params.dig(:q, :first_name), class: "form-control"
+            .vr
+            .col
+              = f.collection_radio_buttons :gender, Application.genders_i18n, :first, :last do |b|
+                .form-check.form-check-inline
+                  = b.label(class: "form-check-label") { b.radio_button(checked: params.dig(:q, :gender) == b.value, class: "form-check-input me-1") + b.text }
+
+            
+
+
+        
+        
+
+      li.list-group-item
+        .d-flex.justify-content-end.my-1
+          = f.button type: "submit", class: "btn btn-sm btn-primary me-1" do
+            i.fas.fa-search.me-1
+            | 検索
+          = link_to admin_campaign_applications_path, class: "btn btn-sm btn-danger ms-1" do
+            i.fa-solid.fa-rotate.me-1
+            | リセット

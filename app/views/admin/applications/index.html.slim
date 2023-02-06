@@ -1,0 +1,68 @@
+- breadcrumb :admin_campaign_applications, @campaign
+
+.container.p-4
+  .d-flex.justify-content-center.mb-4
+    = render "search_form"
+  
+  = items_count(@applications)
+
+  .table-responsive.mt-3
+      table.table.border.border-1
+        thead
+          tr.table-dark style="white-space: nowrap;"
+            th scope="col" ID
+            th scope="col" シリアルコード
+            th scope="col" 会場
+            th scope="col" 氏名
+            th scope="col" メールアドレス
+            th scope="col" 電話番号
+            th scope="col" 性別
+            th scope="col" 生年月日
+            th scope="col" 住所
+            th scope="col" 応募日時
+
+        tbody
+          - if @applications.any?
+            - @applications.each do |application|
+              tr style="white-space: nowrap;"
+                td
+                  = application.id
+                td
+                  = application.serial_code.value
+                td
+                  = application.venue.name
+                td
+                  = application.full_name
+                td
+                  = application.email
+                td
+                  = application.phone_number
+                td
+                  = application.gender_i18n
+                td
+                  = format_date(application.birthdate)
+                td
+                  = application.full_address
+                td
+                  = format_at(application.created_at)
+
+          - else
+            tr
+              td データが存在しません
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+              td
+  
+  = paginate @applications, theme: "bootstrap-5"
+
+  .d-flex.align-items-center.justify-content-center.mt-2
+    = link_to admin_campaign_applications_path(format: :csv), class: "btn btn-sm btn-outline-dark ms-1" do
+        i.fa-solid.fa-file-arrow-down.me-1
+        | CSV ダウンロード
+
+  

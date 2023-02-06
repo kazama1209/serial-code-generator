@@ -1,0 +1,42 @@
+- breadcrumb :admin_campaign_venues, @campaign
+
+= render "admin/shared/flash_message"
+
+.container.p-4
+  .d-flex.justify-content-center.mb-4
+    = render "search_form"
+  
+  .d-flex.align-items-center.justify-content-center
+    .ms-auto.mb-2
+      = link_to new_admin_campaign_venue_path, class: "btn btn-sm btn-success ms-1" do
+        i.fa-solid.fa-plus.me-1
+        | 新規作成
+
+  = items_count(@venues)
+
+  .table-responsive.mt-3
+      table.table.border.border-1
+        thead
+          tr.table-dark style="white-space: nowrap;"
+            th scope="col" ID
+            th scope="col" 名前
+            th scope="col"
+
+        tbody
+          - if @venues.any?
+            - @venues.each do |venue|
+              tr style="white-space: nowrap;"
+                td
+                  = venue.id
+                td
+                  = venue.name
+                td
+                  = link_to edit_admin_campaign_venue_path(venue.campaign, venue), class: "btn btn-sm btn-outline-secondary me-2" do
+                    i.fas.fa-edit.me-1
+                    | 編集
+          - else
+            tr
+              td データが存在しません
+              td
+  
+  = paginate @venues, theme: "bootstrap-5"

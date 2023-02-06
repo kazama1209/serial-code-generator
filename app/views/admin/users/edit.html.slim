@@ -1,0 +1,14 @@
+- breadcrumb :edit_admin_user
+
+.container.p-4
+  .row
+    .col-6.offset-3
+      .card
+        .card-body
+          = render "form", model: current_admin, url: admin_user_path
+
+    .col-6.offset-3.mt-4
+      .alert.alert-warning
+        div
+          i.fa-regular.fa-circle-check.me-1
+          | パスワードを変更すると強制的にログアウトになるので再度ログインしてください。

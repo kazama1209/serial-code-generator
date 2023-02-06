@@ -1,0 +1,21 @@
+.container.p-4
+  .d-flex.align-items-center.justify-content-center
+    .row
+      .col-12
+        .card
+          h5.card-header ログイン画面（管理者）
+          .card-body
+            .table-responsive
+              = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+                table.table.table-borderless
+                  tr
+                    td = f.label :email, class: "control-label"
+                    td = f.email_field :email, autofocus: true, autocomplete: "email", required: true, class: "form-control"
+                  tr
+                    td = f.label :password, class: "control-label"
+                    td = f.password_field :password, autocomplete: "current-password", required: true, class: "form-control"
+
+                .text-center
+                  = f.button type: "submit", class: "btn btn-sm btn-success me-1" do
+                    i.fas.fa-power-off.me-1
+                    | ログイン

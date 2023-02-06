@@ -1,0 +1,5 @@
+- flash.each do |type, message|
+  div class="alert alert-#{alert_type_to_flash_message_type(type)} alert-dismissible rounded-0"
+    h5.m-0
+      i class="icon fa fa-#{icon_type_to_flash_message_type(type)} me-1"
+      = message

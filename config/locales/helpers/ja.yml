@@ -1,0 +1,9 @@
+ja:
+  helpers:
+    submit:
+      create: "作成する"
+      update: "編集する"
+    label:
+      user:
+        email: "メールアドレス"
+        password: "パスワード"

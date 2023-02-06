@@ -1,0 +1,60 @@
+- breadcrumb :admin_campaign_serial_codes, @campaign
+
+= render "admin/shared/flash_message"
+
+.container.p-4
+  .d-flex.justify-content-center.mb-4
+    = render "search_form"
+  
+  .d-flex.align-items-center.justify-content-center
+    .ms-auto.mb-2
+      = link_to new_admin_campaign_serial_code_path, class: "btn btn-sm btn-success ms-1" do
+        i.fa-solid.fa-plus.me-1
+        | 新規作成
+
+  = items_count(@serial_codes)
+
+  .table-responsive.mt-3
+      table.table.border.border-1
+        thead
+          tr.table-dark style="white-space: nowrap;"
+            th scope="col" ID
+            th scope="col" 値
+            th scope="col" ステータス
+            th scope="col" 作成日時
+            th scope="col" 有効期限
+            th scope="col"
+
+        tbody
+          - if @serial_codes.any?
+            - @serial_codes.each do |serial_code|
+              tr style="white-space: nowrap;"
+                td
+                  = serial_code.id
+                td
+                  = serial_code.value
+                td
+                  div class="#{'text-danger' if serial_code.status_applied?}"
+                    = serial_code.status_i18n
+                td
+                  = format_at(serial_code.created_at)
+                td
+                  = format_date(serial_code.expired_at)
+                td
+                  = link_to edit_admin_campaign_serial_code_path(@campaign, serial_code), class: "btn btn-sm btn-outline-secondary me-2" do
+                    i.fas.fa-edit.me-1
+                    | 編集
+          - else
+            tr
+              td データが存在しません
+              td
+              td
+              td
+  
+  = paginate @serial_codes, theme: "bootstrap-5"
+  
+  .d-flex.align-items-center.justify-content-center.mt-2
+    = link_to admin_campaign_serial_codes_path(format: :csv), class: "btn btn-sm btn-outline-dark ms-1" do
+        i.fa-solid.fa-file-arrow-down.me-1
+        | CSV ダウンロード
+  

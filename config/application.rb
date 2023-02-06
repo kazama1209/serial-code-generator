@@ -31,6 +31,14 @@ module Myapp
       g.test_framework false
     end
 
+    config.paths["config/routes.rb"] = Dir["config/routes.rb", Rails.root.join("config/routes/*.rb")]
+    config.autoload_paths += %W(#{Rails.root}/lib)
+    
+    config.time_zone = "Tokyo"
+    config.active_record.default_timezone = :local
+    config.i18n.default_locale = :ja
+    config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}").to_s]
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

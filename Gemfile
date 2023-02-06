@@ -46,3 +46,34 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# View Template
+gem 'slim-rails'
+gem 'html2slim'
+
+# Bulk Insert
+gem 'activerecord-import'
+
+# Pagination
+gem 'kaminari'
+gem 'bootstrap5-kaminari-views'
+
+# Breadcrumbs
+gem 'gretel'
+
+# Dummy Data
+gem 'faker'
+
+# i18n
+gem 'rails-i18n'
+gem 'enum_help'
+
+# Authentication
+gem 'devise'
+gem 'devise-i18n'
+
+# Master Data
+gem 'active_hash'
+
+# env
+gem 'dotenv-rails'

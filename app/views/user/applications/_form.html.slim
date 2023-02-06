@@ -1,0 +1,89 @@
+= render "user/shared/error_messages", model: model
+
+= form_with model: model, url: url, local: true do |f|  
+  table.table.table-borderless
+    tr
+      td
+        = f.label :serial_code_id
+        span.text-danger *
+      td
+        = text_field_tag :serial_code_value, "", required: true, placeholder: "例: TESTCP-123456ABCDEF", class: "form-control"
+    tr
+      td
+        = f.label :venue_id
+        span.text-danger *
+      td
+        = f.collection_select(:venue_id, campaign.venues, :id, :name, { include_blank: true, required: true }, { class:"form-select" })
+    tr
+      td
+        = f.label :last_name
+        span.text-danger *
+      td
+        = f.text_field :last_name, required: true, placeholder: "例: 山田", class: "form-control"
+    tr
+      td
+        = f.label :first_name
+        span.text-danger *
+      td
+        = f.text_field :first_name, required: true, placeholder: "例: 太郎", class: "form-control"
+    tr
+      td
+        = f.label :email
+        span.text-danger *
+      td
+        = f.text_field :email, placeholder: "例: yamada_taro@example.com", required: true, class: "form-control"
+    tr
+      td
+        = f.label :phone_number
+        span.text-danger *
+      td
+        = f.text_field :phone_number, required: true, placeholder: "例: 08012345678", class: "form-control"
+    tr
+      td
+        = f.label :gender
+        span.text-danger *
+      td
+        = f.collection_radio_buttons :gender, Application.genders_i18n, :first, :last do |b|
+          .form-check.form-check-inline
+            = b.label(class: "form-check-label") { b.radio_button(class: "form-check-input me-1", required: true) + b.text }
+    tr
+      td
+        = f.label :birthdate
+        span.text-danger *
+      td
+        = f.date_field :birthdate, required: true, class: "form-control"
+    tr
+      td
+        = f.label :postal_code
+        span.text-danger *
+      td
+        = f.text_field :postal_code, required: true, placeholder: "例: 1500046", class: "form-control"
+    tr
+      td
+        = f.label :prefecture_id
+        span.text-danger *
+      td
+        = f.collection_select(:prefecture_id, Prefecture.all, :id, :name, { include_blank: true, required: true }, { class:"form-select" })
+    tr
+      td
+        = f.label :city
+        span.text-danger *
+      td
+        = f.text_field :city, required: true, placeholder: "例: 渋谷区", class: "form-control"
+    tr
+      td
+        = f.label :address
+        span.text-danger *
+      td
+        = f.text_field :address, required: true, placeholder: "例: 松濤1-29-11", class: "form-control"
+    tr
+      td
+        = f.label :building
+        span.text-danger
+      td
+        = f.text_field :building, placeholder: "例: ​松濤一丁目ビルB棟 2F", class: "form-control"
+  
+  .text-center
+    = f.button type: "submit", class: "btn btn-sm btn-success" do
+      i.fa-solid.fa-arrow-up-from-bracket.me-1
+      | 応募する

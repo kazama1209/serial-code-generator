@@ -1,0 +1,62 @@
+ja:
+  activerecord:
+    models:
+      admin: 管理者
+      campaign: キャンペーン
+      serial_code: シリアルコード
+      application: 応募
+      venue: 会場
+    attributes:
+      admin:
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード（確認用）
+      campaign:
+        title: タイトル
+      serial_code:
+        value: 値
+        status: ステータス
+        expired_at: 有効期限
+      application:
+        serial_code_id: シリアルコード
+        venue_id: 会場
+        first_name: 名
+        last_name: 姓
+        email: メールアドレス
+        phone_number: 電話番号
+        gender: 性別
+        birthdate: 生年月日
+        postal_code: 郵便番号
+        prefecture_id: 都道府県
+        city: 市区町村
+        address: 番地
+        building: 部屋番号・建物名
+      venue:
+        name: 名前
+  enums:
+    serial_code:
+      status:
+        not_applied: 未応募
+        applied: 応募済み
+    application:
+      gender:
+        men: 男性
+        women: 女性
+        other: その他
+  activemodel:
+    attributes:
+      serial_code_generate_form:
+        amount: 発行件数
+        number_of_digits: 桁数
+        format: 形式
+        prefix: プレフィックス
+        expired_at: 有効期限
+    errors:
+      models:
+        serial_code_generate_form:
+          attributes:
+            amount:
+              less_than_5000: は10,000以下で入力してください
+            number_of_digits:
+              out_of_range: は8~16で入力してください

@@ -1,0 +1,33 @@
+= form_with url: admin_campaign_serial_codes_path, scope: :q, method: :get, local: true do |f|
+  .card style="width: 480px;"
+    .card-header.bg-light
+      i.fas.fa-search.me-1
+      | 検索条件
+
+    ul.list-group.list-group-flush
+      li.list-group-item
+        .form-group
+          = f.label t("activerecord.attributes.serial_code.value"), class: "mb-1"
+          = f.text_field :value, value: params.dig(:q, :value), class: "form-control"
+      
+      li.list-group-item
+        .row.mb-1
+          .hstack.gap-3
+            .col
+              = f.collection_radio_buttons :status, SerialCode.statuses_i18n, :first, :last do |b|
+                .form-check.form-check-inline
+                  = b.label(class: "form-check-label") { b.radio_button(checked: params.dig(:q, :status) == b.value, class: "form-check-input me-1") + b.text }
+            .vr
+            .col
+              = f.label t("activerecord.attributes.serial_code.expired_at"), class: "mb-1"
+              = f.date_field :expired_at, class: "form-control"
+      
+      li.list-group-item
+        .d-flex.justify-content-end.my-1
+          = f.button type: "submit", class: "btn btn-sm btn-primary me-1" do
+            i.fas.fa-search.me-1
+            | 検索
+          = link_to admin_campaign_serial_codes_path, class: "btn btn-sm btn-danger ms-1" do
+            i.fa-solid.fa-rotate.me-1
+            | リセット
+
