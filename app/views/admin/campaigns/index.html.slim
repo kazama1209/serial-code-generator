@@ -9,7 +9,7 @@
   .d-flex.align-items-center.justify-content-center
     .ms-auto.mb-2
       = link_to new_admin_campaign_path, class: "btn btn-sm btn-success ms-1" do
-        i.fa-solid.fa-plus.me-1
+        i.fas.fa-plus.me-1
         | 新規作成
   
   = items_count(@campaigns)
@@ -34,15 +34,14 @@
                   = campaign.title
                 td
                   = link_to admin_campaign_serial_codes_path(campaign), class: "btn btn-sm btn-outline-success me-2" do
-                    i.fa-solid.fa-barcode.me-1
+                    i.fas.fa-barcode.me-1
                     | シリアルコード
                   = link_to admin_campaign_applications_path(campaign), class: "btn btn-sm btn-outline-success me-2" do
-                    i.fa-solid.fa-arrow-up-from-bracket.me-1
+                    i.fas.fa-chevron-circle-up.me-1
                     | 応募
                   = link_to admin_campaign_venues_path(campaign), class: "btn btn-sm btn-outline-success me-2" do
-                    i.fa-solid.fa-location-dot.me-1
+                    i.fas.fa-location-arrow.me-1
                     | 会場
-
                 td
                   = format_at(campaign.created_at)
                 td

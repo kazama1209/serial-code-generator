@@ -11,7 +11,7 @@
                         method: :delete,
                         data: { confirm: "シリアルコードを削除してよろしいですか？" },
                         class: "btn btn-sm btn-outline-danger me-2" do
-                i.fa-solid.fa-trash.me-1
+                i.fas.fa-trash.me-1
                 | 削除
 
           = form_with model: @serial_code, url: admin_campaign_serial_code_path, local: true do |f|

@@ -36,17 +36,11 @@
                 .form-check.form-check-inline
                   = b.label(class: "form-check-label") { b.radio_button(checked: params.dig(:q, :gender) == b.value, class: "form-check-input me-1") + b.text }
 
-            
-
-
-        
-        
-
       li.list-group-item
         .d-flex.justify-content-end.my-1
           = f.button type: "submit", class: "btn btn-sm btn-primary me-1" do
             i.fas.fa-search.me-1
             | 検索
           = link_to admin_campaign_applications_path, class: "btn btn-sm btn-danger ms-1" do
-            i.fa-solid.fa-rotate.me-1
+            i.fas.fa-undo.me-1
             | リセット

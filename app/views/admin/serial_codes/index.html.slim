@@ -9,7 +9,7 @@
   .d-flex.align-items-center.justify-content-center
     .ms-auto.mb-2
       = link_to new_admin_campaign_serial_code_path, class: "btn btn-sm btn-success ms-1" do
-        i.fa-solid.fa-plus.me-1
+        i.fas.fa-plus.me-1
         | 新規作成
 
   = items_count(@serial_codes)
@@ -55,6 +55,6 @@
   
   .d-flex.align-items-center.justify-content-center.mt-2
     = link_to admin_campaign_serial_codes_path(format: :csv), class: "btn btn-sm btn-outline-dark ms-1" do
-        i.fa-solid.fa-file-arrow-down.me-1
+        i.fas.fa-file-download.me-1
         | CSV ダウンロード
   
