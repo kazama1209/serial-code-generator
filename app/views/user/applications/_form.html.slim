@@ -13,19 +13,25 @@
         = f.label :venue_id
         span.text-danger *
       td
-        = f.collection_select(:venue_id, campaign.venues, :id, :name, { include_blank: true, required: true }, { class:"form-select" })
+        .row
+          .col-auto
+            = f.collection_select(:venue_id, campaign.venues, :id, :name, { include_blank: true, required: true }, { class:"form-select" })
     tr
       td
         = f.label :last_name
         span.text-danger *
       td
-        = f.text_field :last_name, required: true, placeholder: "例: 山田", class: "form-control"
+        .row
+          .col-auto
+            = f.text_field :last_name, required: true, placeholder: "例: 山田", class: "form-control"
     tr
       td
         = f.label :first_name
         span.text-danger *
       td
-        = f.text_field :first_name, required: true, placeholder: "例: 太郎", class: "form-control"
+        .row
+          .col-auto
+            = f.text_field :first_name, required: true, placeholder: "例: 太郎", class: "form-control"
     tr
       td
         = f.label :email
@@ -37,7 +43,9 @@
         = f.label :phone_number
         span.text-danger *
       td
-        = f.text_field :phone_number, required: true, placeholder: "例: 08012345678", class: "form-control"
+        .row
+          .col-auto
+            = f.text_field :phone_number, required: true, placeholder: "例: 08012345678", class: "form-control"
     tr
       td
         = f.label :gender
@@ -51,31 +59,42 @@
         = f.label :birthdate
         span.text-danger *
       td
-        = f.date_field :birthdate, required: true, class: "form-control"
+        .row
+          .col-auto
+            = f.date_field :birthdate, required: true, class: "form-control"
     tr
       td
         = f.label :postal_code
         span.text-danger *
       td
-        = f.text_field :postal_code, required: true, placeholder: "例: 1500046", class: "form-control"
+        .row
+          .col-auto
+            = f.text_field :postal_code, required: true, placeholder: "例: 1500046", class: "form-control", id: "postal_code"
+          .col-auto
+            #search_address_button.btn.btn-primary
+              | 住所検索
+        #search_address_error_message.mt-1 style="display: none;"
+          small.text-danger ※ 郵便番号に誤りがあります
     tr
       td
         = f.label :prefecture_id
         span.text-danger *
       td
-        = f.collection_select(:prefecture_id, Prefecture.all, :id, :name, { include_blank: true, required: true }, { class:"form-select" })
+        .row
+          .col-auto
+            = f.collection_select(:prefecture_id, Prefecture.all, :id, :name, { include_blank: true, required: true }, { class:"form-select", id: "prefecture_id" })
     tr
       td
         = f.label :city
         span.text-danger *
       td
-        = f.text_field :city, required: true, placeholder: "例: 渋谷区", class: "form-control"
+        = f.text_field :city, required: true, placeholder: "例: 渋谷区", class: "form-control", id: "city"
     tr
       td
         = f.label :address
         span.text-danger *
       td
-        = f.text_field :address, required: true, placeholder: "例: 松濤1-29-11", class: "form-control"
+        = f.text_field :address, required: true, placeholder: "例: 松濤1-29-11", class: "form-control", id: "address"
     tr
       td
         = f.label :building
@@ -87,3 +106,39 @@
     = f.button type: "submit", class: "btn btn-sm btn-success" do
       i.fas.fa-chevron-circle-up.me-1
       | 応募する
+
+javascript:
+  const searchAddressButton = document.getElementById("search_address_button");
+  searchAddressButton.addEventListener("click", searchAddress);
+
+  async function searchAddress() {
+    const backdropSpinner = document.getElementById("backdrop_spinner");
+    backdropSpinner.style.display = "block"
+
+    const searchAddressErrorMessage = document.getElementById("search_address_error_message");
+    const postalCode = document.getElementById("postal_code");
+    const prefectureId = document.getElementById("prefecture_id");
+    const city = document.getElementById("city");
+    const address = document.getElementById("address");
+    const url = `https://zipcloud.ibsnet.co.jp/api/search?zipcode=${postalCode.value}`;
+    const response = await fetch(url);
+    const json = await response.json();
+
+    if (json.status == 200 && json.results) {
+      const result = json.results[0]
+
+      prefectureId.value = result.prefcode;
+      city.value = result.address2;
+      address.value = result.address3;
+
+      searchAddressErrorMessage.style.display = "none";
+    } else {      
+      prefectureId.value = null;
+      city.value = null;
+      address.value = null;
+
+      searchAddressErrorMessage.style.display = "block";
+    }
+
+    backdropSpinner.style.display = "none"
+  }

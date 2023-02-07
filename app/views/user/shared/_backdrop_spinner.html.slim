@@ -1,0 +1,21 @@
+scss:
+  #backdrop_spinner {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    display: none;
+
+    .spinner-border {
+      display: block;
+      position: fixed;
+      top: calc(50% - (58px / 2));  
+      right: calc(50% - (58px / 2));
+    }
+  }
+
+#backdrop_spinner
+  .spinner-border.text-primary
